@@ -1,0 +1,64 @@
+﻿<Page x:Class="MarketplaceSession.Pages.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MarketplaceSession.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegistrationPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 45">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Имя:"/>
+                    <TextBlock Text="Фамилия:"/>
+                    <TextBlock Text="Роль:"/>
+                    <TextBlock Text="Логин:"/>
+                    <TextBlock Text="Пароль:"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="TbName"/>
+                    <TextBox x:Name="TbSurname"/>
+                    <ComboBox x:Name="CbRoles">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBox x:Name="TbLogin"/>
+                    <PasswordBox x:Name="TbPassword"/>
+                </StackPanel>
+            </Grid>
+
+            <Button x:Name="BtnSignUp" Content="Зарегистрироваться"
+                    HorizontalAlignment="Center"
+                    Click="BtnSignUp_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Bottom">
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink NavigateUri="AuthorizationPage.xaml">
+                    Авторизация
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

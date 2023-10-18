@@ -1,0 +1,74 @@
+﻿<Page x:Class="MarketplaceSession.Pages.AuthorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MarketplaceSession.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AuthorizationPage" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 45">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Логин:"/>
+                    <TextBlock Text="Пароль:"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="TbLogin"/>
+                    <PasswordBox x:Name="TbPassword"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="ChbRemember"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Content="Запомнить"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
+                    <!--<TextBlock VerticalAlignment="Center">
+                        <Hyperlink NavigateUri="RegistrationPage.xaml">
+                            Регистрация
+                        </Hyperlink>
+                    </TextBlock>-->
+
+                    <Button x:Name="BtnSignIn" Content="Войти"
+                            HorizontalAlignment="Right"
+                            Click="BtnSignIn_Click"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Bottom">
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink NavigateUri="RegistrationPage.xaml">
+                    Регистрация
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketplaceSession"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Marketplace" Height="450" Width="800">
+    <Grid Background="#FFFFF9F1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="3"
+              Background="#FFBACBD2">
+            <!--<Image Source="/Resources/VHS.png"
+                       HorizontalAlignment="Left"/>-->
+            <TextBlock Text="Маркетплейс" FontSize="35"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Background="#FFBACBD2"/>
     </Grid>
 </Window>

@@ -22,7 +22,7 @@ namespace MarketplaceSession.ADO
         {
         }
 
-        private static MarketplaceSessionEntities GetContext()
+        public static MarketplaceSessionEntities GetContext()
         {
             if (_context == null)
                 _context = new MarketplaceSessionEntities();
