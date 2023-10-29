@@ -16,9 +16,10 @@ namespace MarketplaceSession.ADO
     {
         public int Id { get; set; }
         public int StatusId { get; set; }
-        public int ProductCartId { get; set; }
+        public int CartId { get; set; }
+        public System.DateTime OrderDate { get; set; }
     
-        public virtual ProductCart ProductCart { get; set; }
+        public virtual Cart Cart { get; set; }
         public virtual Status Status { get; set; }
     }
 }

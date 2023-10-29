@@ -15,18 +15,9 @@ namespace MarketplaceSession.ADO
     
     public partial class MarketplaceSessionEntities : DbContext
     {
-        private static MarketplaceSessionEntities _context;
-
         public MarketplaceSessionEntities()
             : base("name=MarketplaceSessionEntities")
         {
-        }
-
-        public static MarketplaceSessionEntities GetContext()
-        {
-            if (_context == null)
-                _context = new MarketplaceSessionEntities();
-            return _context;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

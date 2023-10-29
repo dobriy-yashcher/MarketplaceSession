@@ -1,11 +1,15 @@
 ﻿using MarketplaceSession.ADO;
 using MarketplaceSession.Components;
+using MarketplaceSession.Pages;
 using MarketplaceSession.Properties;
+using MarketplaceSession.Windows;
 using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MarketplaceSession.Pages
 {
@@ -26,22 +30,70 @@ namespace MarketplaceSession.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var loginText = Settings.Default.LastUser;
-            TbLogin.Text = loginText;
+            txtUsername.Text = loginText;
 
             if (loginText != "")
                 ChbRemember.IsChecked = true;
         }
 
-        private void BtnSignIn_Click(object sender, RoutedEventArgs e)
+        private void textUsername_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            txtUsername.Focus();
+        }
+
+        private void textPassword_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            passwordBox.Focus();
+        }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtUsername.Text) && txtUsername.Text.Length > 0)
+                textUsername.Visibility = Visibility.Collapsed;
+            else
+                textUsername.Visibility = Visibility.Visible;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(passwordBox.Password) && passwordBox.Password.Length > 0)
+                textPassword.Visibility = Visibility.Collapsed;
+            else
+                textPassword.Visibility = Visibility.Visible;
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new RegistrationPage());
+        }            
+
+        //private async void Login_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(passwordBox.Password))
+        //    {
+        //        MessageBox.Show("Successfully Signed In");
+
+        //        var mainView = new MainWindow();
+        //        mainView.Show();
+        //        Application.Current.Windows[0].Close();
+        //    }
+        //}
+
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             /// <summary>
             /// Проверка блокировки авторизации
             /// </summary>
             if (Settings.Default.DateEndBlock > DateTime.Now)
             {
-                MessageBox.Show("Многократный ввод неккоректных данных" + Environment.NewLine +
-                    $"До разблокировки: {(Settings.Default.DateEndBlock - DateTime.Now).Seconds} секунд",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Multiple input of non-correct data" + Environment.NewLine +
+                    $"Before unblocking: {(Settings.Default.DateEndBlock - DateTime.Now).Seconds} seconds",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -50,14 +102,14 @@ namespace MarketplaceSession.Pages
             /// </summary>
             StringBuilder errors = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(TbLogin.Text))
-                errors.AppendLine("Введите логин!");
-            if (string.IsNullOrWhiteSpace(TbPassword.Password))
-                errors.AppendLine("Введите пароль!");
+            if (string.IsNullOrWhiteSpace(txtUsername.Text))
+                errors.AppendLine("Enter your username!");
+            if (string.IsNullOrWhiteSpace(passwordBox.Password))
+                errors.AppendLine("Enter the password!");
 
             if (errors.Length > 0)
             {
-                MessageBox.Show(errors.ToString(), "Ошибка",
+                MessageBox.Show(errors.ToString(), "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -65,7 +117,7 @@ namespace MarketplaceSession.Pages
             /// <summary>
             /// Обработка функции "Запомни меня"
             /// </summary>
-            if (ChbRemember.IsChecked == true) Settings.Default.LastUser = TbLogin.Text;
+            if (ChbRemember.IsChecked == true) Settings.Default.LastUser = txtUsername.Text;
             else Settings.Default.LastUser = "";
 
             Settings.Default.Save();
@@ -75,19 +127,19 @@ namespace MarketplaceSession.Pages
             /// </summary>
             var findUser = MarketplaceSessionEntities
                 .GetContext().User
-                .Where(x => x.LogIn.Username == TbLogin.Text)
+                .Where(x => x.LogIn.Username == txtUsername.Text)
                 .FirstOrDefault();
 
             if (findUser == null)
             {
-                MessageBox.Show("Неверный логин!", "Ошибка",
+                MessageBox.Show("Invalid login!", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (findUser.LogIn.Password != TbPassword.Password)
+            if (findUser.LogIn.Password != passwordBox.Password)
             {
-                MessageBox.Show("Неверный пароль!", "Ошибка",
+                MessageBox.Show("Invalid password!", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
 
                 _incorrectPasswordInputCount++;
@@ -101,9 +153,12 @@ namespace MarketplaceSession.Pages
             }
             else
             {
-                MessageBox.Show("Авторизация прошла успешно!",
-                    "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                Manager.MainFrame.Navigate(new MainPage());
+                MessageBox.Show("Authorization was successful!",
+                    "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var mainView = new MainWindow();
+                mainView.Show();
+                Application.Current.Windows[0].Close();
             }
         }
     }

@@ -14,20 +14,12 @@ namespace MarketplaceSession.ADO
     
     public partial class ProductCart
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductCart()
-        {
-            this.Order = new HashSet<Order>();
-        }
-    
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int CartId { get; set; }
         public int Count { get; set; }
     
         public virtual Cart Cart { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
         public virtual Product Product { get; set; }
     }
 }

@@ -5,60 +5,94 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MarketplaceSession.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="RegistrationPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1"
-                    VerticalAlignment="Center"
-                    Margin="0 0 0 45">
+        <Image Source="/Images/shutdown_mo.png" Grid.Column="1" Panel.ZIndex="1" 
+               MouseDown="Image_MouseDown" Style="{StaticResource imgClose}"/>
+
+        <Border CornerRadius="10 0 0 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#3AA9AD" Offset="0" />
+                    <GradientStop Color="#3AADA1" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
+                <Canvas>
+                    <Polygon Points="0,20 230,140 0,270" Fill="#4EB1B6" />
+                    <Polygon Points="100,400 200,370 180,470" Fill="#4EB1B6" />
+                    <Ellipse Margin="250 450 0 0" Width="40" Height="40" Fill="#4EB1B6" />
+                    <Ellipse Margin="50 400 0 0" Width="20" Height="20" Fill="#4EB1B6" />
+                </Canvas>
 
-                <StackPanel>
-                    <TextBlock Text="Имя:"/>
-                    <TextBlock Text="Фамилия:"/>
-                    <TextBlock Text="Роль:"/>
-                    <TextBlock Text="Логин:"/>
-                    <TextBlock Text="Пароль:"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="1">
-                    <TextBox x:Name="TbName"/>
-                    <TextBox x:Name="TbSurname"/>
-                    <ComboBox x:Name="CbRoles">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <TextBox x:Name="TbLogin"/>
-                    <PasswordBox x:Name="TbPassword"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Login"
+                               Style="{StaticResource TitleText}" />
+                    <TextBlock Text="Login to your existing account" 
+                               Opacity="0.8" Margin="20 30 20 30" 
+                               Style="{StaticResource NormalText}" />
+                    <Button Content="Login" Click="Login_Click"
+                            Style="{StaticResource button}" />
                 </StackPanel>
             </Grid>
+        </Border>
 
-            <Button x:Name="BtnSignUp" Content="Зарегистрироваться"
-                    HorizontalAlignment="Center"
-                    Click="BtnSignUp_Click"/>
-        </StackPanel>
+        <Border Background="#FFFFFF" Grid.Column="1" CornerRadius="0 10 10 0">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Sign Up" Foreground="#3AB19B" 
+                           Style="{StaticResource TitleText}" />
 
-        <StackPanel Grid.Column="1"
-                    VerticalAlignment="Bottom">
-            <TextBlock HorizontalAlignment="Center">
-                <Hyperlink NavigateUri="AuthorizationPage.xaml">
-                    Авторизация
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="70 20 70 7" CornerRadius="5">
+                    <Grid Margin="7 9">
+                        <Image Source="/Images/user.png" Height="19" />
+                        <TextBlock x:Name="textName" MouseDown="textName_MouseDown" 
+                                   Text="Name" Style="{StaticResource textHint}" />
+                        <TextBox Name="txtName" TextChanged="txtName_TextChanged" 
+                                 Style="{StaticResource textBox}" />
+                    </Grid>
+                </Border>
+
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="70 7" CornerRadius="5">
+                    <Grid Margin="7 9">
+                        <TextBlock x:Name="textSurname" MouseDown="textSurname_MouseDown" 
+                                   Text="Surname" Style="{StaticResource textHint}" />
+                        <TextBox Name="txtSurname" TextChanged="txtSurname_TextChanged" 
+                                 Style="{StaticResource textBox}" />
+                    </Grid>
+                </Border>
+
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="70 7" CornerRadius="5">
+                    <Grid Margin="7 9">
+                        <TextBlock x:Name="textUsername" MouseDown="textUsername_MouseDown" 
+                                   Text="Username" Style="{StaticResource textHint}" />
+                        <TextBox Name="txtUsername" TextChanged="txtUsername_TextChanged" 
+                                 Style="{StaticResource textBox}" />
+                    </Grid>
+                </Border>
+
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="70 7" CornerRadius="5">
+                    <Grid Margin="7 9">
+                        <TextBlock x:Name="textPassword" 
+                                   MouseDown="textPassword_MouseDown" 
+                                   Text="Password" 
+                                   Style="{StaticResource textHint}" />
+                        <PasswordBox x:Name="passwordBox" 
+                                     PasswordChanged="PasswordBox_PasswordChanged" 
+                                     Style="{StaticResource textBox}" />
+                    </Grid>
+                </Border>
+
+                <Button Content="Sign Up" Click="SignUp_Click" 
+                        Style="{StaticResource mainButton}" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

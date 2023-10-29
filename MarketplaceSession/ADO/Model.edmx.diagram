@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dbdc7d3dc5164ad289519668efa98bee" Name="Diagram1">
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Cart" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Category" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.FollowProduct" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.LogIn" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Order" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Product" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.ProductCart" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Role" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Status" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.User" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+      <Diagram DiagramId="c5bdcdb8c01f424f93ca19431a4a0597" Name="Diagram1">
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Cart" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Category" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.FollowProduct" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.LogIn" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Order" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Product" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.ProductCart" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Role" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.Status" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplaceSessionModel.User" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_Cart_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketplaceSessionModel.FK_Order_Cart" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_ProductCart_Cart" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_Product_Category" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_FollowProduct_Product" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_FollowProduct_User" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_User_LogIn" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_Order_ProductCart" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_Order_Status" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_ProductCart_Product" ManuallyRouted="false" />
         <AssociationConnector Association="MarketplaceSessionModel.FK_User_Role" ManuallyRouted="false" />
