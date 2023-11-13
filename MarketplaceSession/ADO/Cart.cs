@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarketplaceSession.ADO
+namespace ProductDelivery.ADO
 {
     using System;
     using System.Collections.Generic;

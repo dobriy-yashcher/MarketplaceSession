@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MarketplaceSessionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProductDeliveryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="Id" />
@@ -208,7 +208,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MarketplaceSessionModelStoreContainer">
+        <EntityContainer Name="ProductDeliveryModelStoreContainer">
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FollowProduct" EntityType="Self.FollowProduct" Schema="dbo" store:Type="Tables" />
@@ -260,28 +260,79 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MarketplaceSessionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ProductDeliveryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProductDeliveryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cart" EntityType="ProductDeliveryModel.Cart" />
+          <EntitySet Name="Category" EntityType="ProductDeliveryModel.Category" />
+          <EntitySet Name="FollowProduct" EntityType="ProductDeliveryModel.FollowProduct" />
+          <EntitySet Name="LogIn" EntityType="ProductDeliveryModel.LogIn" />
+          <EntitySet Name="Order" EntityType="ProductDeliveryModel.Order" />
+          <EntitySet Name="Product" EntityType="ProductDeliveryModel.Product" />
+          <EntitySet Name="ProductCart" EntityType="ProductDeliveryModel.ProductCart" />
+          <EntitySet Name="Role" EntityType="ProductDeliveryModel.Role" />
+          <EntitySet Name="Status" EntityType="ProductDeliveryModel.Status" />
+          <EntitySet Name="User" EntityType="ProductDeliveryModel.User" />
+          <AssociationSet Name="FK_Cart_User" Association="ProductDeliveryModel.FK_Cart_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Cart" Association="ProductDeliveryModel.FK_Order_Cart">
+            <End Role="Cart" EntitySet="Cart" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCart_Cart" Association="ProductDeliveryModel.FK_ProductCart_Cart">
+            <End Role="Cart" EntitySet="Cart" />
+            <End Role="ProductCart" EntitySet="ProductCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="ProductDeliveryModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FollowProduct_Product" Association="ProductDeliveryModel.FK_FollowProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="FollowProduct" EntitySet="FollowProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FollowProduct_User" Association="ProductDeliveryModel.FK_FollowProduct_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="FollowProduct" EntitySet="FollowProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_LogIn" Association="ProductDeliveryModel.FK_User_LogIn">
+            <End Role="LogIn" EntitySet="LogIn" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Status" Association="ProductDeliveryModel.FK_Order_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCart_Product" Association="ProductDeliveryModel.FK_ProductCart_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductCart" EntitySet="ProductCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="ProductDeliveryModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Cart_User" FromRole="Cart" ToRole="User" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Cart" FromRole="Cart" ToRole="Order" />
-          <NavigationProperty Name="ProductCart" Relationship="Self.FK_ProductCart_Cart" FromRole="Cart" ToRole="ProductCart" />
+          <NavigationProperty Name="User" Relationship="ProductDeliveryModel.FK_Cart_User" FromRole="Cart" ToRole="User" />
+          <NavigationProperty Name="Order" Relationship="ProductDeliveryModel.FK_Order_Cart" FromRole="Cart" ToRole="Order" />
+          <NavigationProperty Name="ProductCart" Relationship="ProductDeliveryModel.FK_ProductCart_Cart" FromRole="Cart" ToRole="ProductCart" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="ProductDeliveryModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="FollowProduct">
           <Key>
@@ -290,17 +341,17 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_FollowProduct_Product" FromRole="FollowProduct" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="Self.FK_FollowProduct_User" FromRole="FollowProduct" ToRole="User" />
+          <NavigationProperty Name="Product" Relationship="ProductDeliveryModel.FK_FollowProduct_Product" FromRole="FollowProduct" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="ProductDeliveryModel.FK_FollowProduct_User" FromRole="FollowProduct" ToRole="User" />
         </EntityType>
         <EntityType Name="LogIn">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_LogIn" FromRole="LogIn" ToRole="User" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ProductDeliveryModel.FK_User_LogIn" FromRole="LogIn" ToRole="User" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -310,22 +361,22 @@
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Cart" Relationship="Self.FK_Order_Cart" FromRole="Order" ToRole="Cart" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Order_Status" FromRole="Order" ToRole="Status" />
+          <NavigationProperty Name="Cart" Relationship="ProductDeliveryModel.FK_Order_Cart" FromRole="Order" ToRole="Cart" />
+          <NavigationProperty Name="Status" Relationship="ProductDeliveryModel.FK_Order_Status" FromRole="Order" ToRole="Status" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cost" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="IsActual" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="FollowProduct" Relationship="Self.FK_FollowProduct_Product" FromRole="Product" ToRole="FollowProduct" />
-          <NavigationProperty Name="ProductCart" Relationship="Self.FK_ProductCart_Product" FromRole="Product" ToRole="ProductCart" />
+          <NavigationProperty Name="Category" Relationship="ProductDeliveryModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="FollowProduct" Relationship="ProductDeliveryModel.FK_FollowProduct_Product" FromRole="Product" ToRole="FollowProduct" />
+          <NavigationProperty Name="ProductCart" Relationship="ProductDeliveryModel.FK_ProductCart_Product" FromRole="Product" ToRole="ProductCart" />
         </EntityType>
         <EntityType Name="ProductCart">
           <Key>
@@ -335,42 +386,42 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cart" Relationship="Self.FK_ProductCart_Cart" FromRole="ProductCart" ToRole="Cart" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductCart_Product" FromRole="ProductCart" ToRole="Product" />
+          <NavigationProperty Name="Cart" Relationship="ProductDeliveryModel.FK_ProductCart_Cart" FromRole="ProductCart" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="ProductDeliveryModel.FK_ProductCart_Product" FromRole="ProductCart" ToRole="Product" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ProductDeliveryModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Status" FromRole="Status" ToRole="Order" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="ProductDeliveryModel.FK_Order_Status" FromRole="Status" ToRole="Order" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="LoginId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_User" FromRole="User" ToRole="Cart" />
-          <NavigationProperty Name="FollowProduct" Relationship="Self.FK_FollowProduct_User" FromRole="User" ToRole="FollowProduct" />
-          <NavigationProperty Name="LogIn" Relationship="Self.FK_User_LogIn" FromRole="User" ToRole="LogIn" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Cart" Relationship="ProductDeliveryModel.FK_Cart_User" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="FollowProduct" Relationship="ProductDeliveryModel.FK_FollowProduct_User" FromRole="User" ToRole="FollowProduct" />
+          <NavigationProperty Name="LogIn" Relationship="ProductDeliveryModel.FK_User_LogIn" FromRole="User" ToRole="LogIn" />
+          <NavigationProperty Name="Role" Relationship="ProductDeliveryModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_Cart_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.User" Role="User" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -381,8 +432,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Cart">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Cart" Role="Cart" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
               <PropertyRef Name="Id" />
@@ -393,8 +444,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductCart_Cart">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
-          <End Role="ProductCart" Type="Self.ProductCart" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Cart" Role="Cart" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.ProductCart" Role="ProductCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
               <PropertyRef Name="Id" />
@@ -405,8 +456,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="Id" />
@@ -417,8 +468,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FollowProduct_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="FollowProduct" Type="Self.FollowProduct" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.FollowProduct" Role="FollowProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
@@ -429,8 +480,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FollowProduct_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="FollowProduct" Type="Self.FollowProduct" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.User" Role="User" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.FollowProduct" Role="FollowProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -441,8 +492,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_LogIn">
-          <End Role="LogIn" Type="Self.LogIn" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.LogIn" Role="LogIn" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LogIn">
               <PropertyRef Name="Id" />
@@ -453,8 +504,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="Id" />
@@ -465,8 +516,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductCart_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductCart" Type="Self.ProductCart" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.ProductCart" Role="ProductCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
@@ -477,8 +528,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="ProductDeliveryModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="ProductDeliveryModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -488,154 +539,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MarketplaceSessionEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cart" EntityType="Self.Cart" />
-          <EntitySet Name="Category" EntityType="Self.Category" />
-          <EntitySet Name="FollowProduct" EntityType="Self.FollowProduct" />
-          <EntitySet Name="LogIn" EntityType="Self.LogIn" />
-          <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="ProductCart" EntityType="Self.ProductCart" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Cart_User" Association="Self.FK_Cart_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Cart" EntitySet="Cart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Cart" Association="Self.FK_Order_Cart">
-            <End Role="Cart" EntitySet="Cart" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductCart_Cart" Association="Self.FK_ProductCart_Cart">
-            <End Role="Cart" EntitySet="Cart" />
-            <End Role="ProductCart" EntitySet="ProductCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FollowProduct_Product" Association="Self.FK_FollowProduct_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="FollowProduct" EntitySet="FollowProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FollowProduct_User" Association="Self.FK_FollowProduct_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="FollowProduct" EntitySet="FollowProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_LogIn" Association="Self.FK_User_LogIn">
-            <End Role="LogIn" EntitySet="LogIn" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Status" Association="Self.FK_Order_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductCart_Product" Association="Self.FK_ProductCart_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductCart" EntitySet="ProductCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MarketplaceSessionModelStoreContainer" CdmEntityContainer="MarketplaceSessionEntities">
+        <EntityContainerMapping StorageEntityContainer="ProductDeliveryModelStoreContainer" CdmEntityContainer="ProductDeliveryEntities">
           <EntitySetMapping Name="Cart">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Cart">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Category">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Category">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FollowProduct">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.FollowProduct">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.FollowProduct">
               <MappingFragment StoreEntitySet="FollowProduct">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogIn">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.LogIn">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.LogIn">
               <MappingFragment StoreEntitySet="LogIn">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Order">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Order">
               <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CartId" ColumnName="CartId" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Product">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="IsActual" ColumnName="IsActual" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductCart">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.ProductCart">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.ProductCart">
               <MappingFragment StoreEntitySet="ProductCart">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="CartId" ColumnName="CartId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Role">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.Status">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="MarketplaceSessionModel.User">
+            <EntityTypeMapping TypeName="ProductDeliveryModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

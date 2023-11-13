@@ -1,10 +1,10 @@
-﻿using MarketplaceSession.Components;
-using MarketplaceSession.Pages;
-using MarketplaceSession.Windows;
+﻿using ProductDelivery.Components;
+using ProductDelivery.Pages;
+using ProductDelivery.Windows;
 using System.Windows;
 using System.Windows.Input;
 
-namespace MarketplaceSession
+namespace ProductDelivery
 {
     public partial class LoginWindow : Window
     {

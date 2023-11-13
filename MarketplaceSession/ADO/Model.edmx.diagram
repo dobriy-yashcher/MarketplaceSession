@@ -5,26 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c5bdcdb8c01f424f93ca19431a4a0597" Name="Diagram1">
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Cart" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Category" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.FollowProduct" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.LogIn" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Order" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Product" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.ProductCart" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Role" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.Status" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MarketplaceSessionModel.User" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_Cart_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_Order_Cart" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_ProductCart_Cart" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_Product_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_FollowProduct_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_FollowProduct_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_User_LogIn" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_Order_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_ProductCart_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="MarketplaceSessionModel.FK_User_Role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Cart" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Category" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.FollowProduct" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.LogIn" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Order" Width="1.5" PointX="7.5" PointY="3.75" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Product" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.ProductCart" Width="1.5" PointX="7.5" PointY="6.75" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Role" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.Status" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="ProductDeliveryModel.User" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_Cart_User" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_Order_Cart" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_ProductCart_Cart" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_Product_Category" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_FollowProduct_Product" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_FollowProduct_User" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_User_LogIn" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_Order_Status" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_ProductCart_Product" />
+        <AssociationConnector Association="ProductDeliveryModel.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,7 +1,7 @@
-﻿using MarketplaceSession.ADO;
+﻿using ProductDelivery.ADO;
 using System.Windows.Controls;
 
-namespace MarketplaceSession.Components
+namespace ProductDelivery.Components
 {
     static class Manager
     {

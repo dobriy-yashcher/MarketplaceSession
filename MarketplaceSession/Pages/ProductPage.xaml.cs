@@ -1,5 +1,5 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
 using Microsoft.Win32;
 using System.Data.Entity.Migrations;
 using System.IO;
@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for ProductPage.xaml
@@ -36,10 +36,10 @@ namespace MarketplaceSession.Pages
             if (productId != null)
             {
                 _isNew = false;
-                Product = MarketplaceSessionEntities.GetContext().Product.Find(productId);
+                Product = ProductDeliveryEntities.GetContext().Product.Find(productId);
             }
             _isReadonly = Manager.AuthorizedUser.Role.Name == "Client";
-            ProductTypes = MarketplaceSessionEntities.GetContext().Category.ToArray();
+            ProductTypes = ProductDeliveryEntities.GetContext().Category.ToArray();
             Unloaded += ProductPage_Unloaded;
 
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace MarketplaceSession.Pages
         private void ProductPage_Unloaded(object sender, RoutedEventArgs e)
         {
             if (Product.Id != 0)
-                MarketplaceSessionEntities.GetContext().Entry(Product).Reload();
+                ProductDeliveryEntities.GetContext().Entry(Product).Reload();
         }
 
 
@@ -80,8 +80,8 @@ namespace MarketplaceSession.Pages
                 return;
             }
 
-            MarketplaceSessionEntities.GetContext().Product.AddOrUpdate(Product);
-            MarketplaceSessionEntities.GetContext().SaveChanges();
+            ProductDeliveryEntities.GetContext().Product.AddOrUpdate(Product);
+            ProductDeliveryEntities.GetContext().SaveChanges();
             NavigationService.GoBack();
         }
 
@@ -97,8 +97,8 @@ namespace MarketplaceSession.Pages
             if (result == MessageBoxResult.Yes)
             {
                 Product.IsActual = true;
-                MarketplaceSessionEntities.GetContext().Product.AddOrUpdate(Product);
-                MarketplaceSessionEntities.GetContext().SaveChanges();
+                ProductDeliveryEntities.GetContext().Product.AddOrUpdate(Product);
+                ProductDeliveryEntities.GetContext().SaveChanges();
                 NavigationService.GoBack();
             }
         }
@@ -131,14 +131,14 @@ namespace MarketplaceSession.Pages
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            var basketEntry = MarketplaceSessionEntities.GetContext().ProductCart
+            var basketEntry = ProductDeliveryEntities.GetContext().ProductCart
                      .FirstOrDefault(x => x.CartId == Manager.CurrentCart.Id && x.ProductId == Product.Id)
                      ?? new ProductCart { ProductId = Product.Id, CartId = Manager.CurrentCart.Id };
 
             basketEntry.Count++;
 
-            MarketplaceSessionEntities.GetContext().ProductCart.AddOrUpdate(basketEntry);
-            MarketplaceSessionEntities.GetContext().SaveChanges();
+            ProductDeliveryEntities.GetContext().ProductCart.AddOrUpdate(basketEntry);
+            ProductDeliveryEntities.GetContext().SaveChanges();
 
             MessageBox.Show($"The product has been added to the cart. Current quantity: {basketEntry.Count}", "Successfully",
                 MessageBoxButton.OK, MessageBoxImage.Asterisk);

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MarketplaceSession.UserControls
+namespace ProductDelivery.UserControls
 {
     public partial class Item : UserControl
     {

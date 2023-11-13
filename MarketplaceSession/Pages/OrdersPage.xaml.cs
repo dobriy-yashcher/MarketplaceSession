@@ -1,10 +1,10 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for OrdersPage.xaml
@@ -18,13 +18,13 @@ namespace MarketplaceSession.Pages
         {
             var fetchAll = Manager.AuthorizedUser.Role.Name == "Admin";
             if (fetchAll)
-                Orders = MarketplaceSessionEntities.GetContext().Order.OrderByDescending(x => x.OrderDate).ToArray();
+                Orders = ProductDeliveryEntities.GetContext().Order.OrderByDescending(x => x.OrderDate).ToArray();
             else
-                Orders = MarketplaceSessionEntities.GetContext().Order.Where(x => x.Cart.UserId == Manager.AuthorizedUser.Id).OrderByDescending(x => x.OrderDate).ToArray();
+                Orders = ProductDeliveryEntities.GetContext().Order.Where(x => x.Cart.UserId == Manager.AuthorizedUser.Id).OrderByDescending(x => x.OrderDate).ToArray();
 
             //foreach (Order order in Orders)
             //{
-            //    var products = MarketplaceSessionEntities.GetContext().ProductCart.Where(x => x.CartId == order.CartId).ToArray();
+            //    var products = ProductDeliveryEntities.GetContext().ProductCart.Where(x => x.CartId == order.CartId).ToArray();
             //    TotalPrice += products.Sum(x => x.Count * x.Product.Cost);
             //}
 

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketplaceSession.ADO
+namespace ProductDelivery.ADO
 {
-    public partial class MarketplaceSessionEntities
+    public partial class ProductDeliveryEntities
     {
-        private static MarketplaceSessionEntities _context;
+        private static ProductDeliveryEntities _context;
 
-        public static MarketplaceSessionEntities GetContext()
+        public static ProductDeliveryEntities GetContext()
         {
             if (_context == null)
-                _context = new MarketplaceSessionEntities();
+                _context = new ProductDeliveryEntities();
 
             return _context;
         }

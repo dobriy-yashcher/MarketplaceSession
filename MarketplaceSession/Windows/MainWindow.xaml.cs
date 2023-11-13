@@ -1,10 +1,10 @@
-﻿using MarketplaceSession.Components;
-using MarketplaceSession.Pages;
+﻿using ProductDelivery.Components;
+using ProductDelivery.Pages;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 
-namespace MarketplaceSession.Windows
+namespace ProductDelivery.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

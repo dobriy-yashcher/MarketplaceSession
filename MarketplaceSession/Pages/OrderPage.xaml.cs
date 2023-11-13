@@ -1,5 +1,5 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for OrderPage.xaml
@@ -24,10 +24,10 @@ namespace MarketplaceSession.Pages
 
         public OrderPage(int orderId)
         {                                              
-            Order = MarketplaceSessionEntities.GetContext().Order.Find(orderId);
+            Order = ProductDeliveryEntities.GetContext().Order.Find(orderId);
             SelectedStatus = Order.Status;
-            Products = MarketplaceSessionEntities.GetContext().ProductCart.Where(x => x.CartId == Order.CartId).ToArray();
-            Statuses = MarketplaceSessionEntities.GetContext().Status.ToArray();
+            Products = ProductDeliveryEntities.GetContext().ProductCart.Where(x => x.CartId == Order.CartId).ToArray();
+            Statuses = ProductDeliveryEntities.GetContext().Status.ToArray();
             OrderSum = Products.Sum(x => x.Count * x.Product.Cost);
 
             InitializeComponent();
@@ -46,8 +46,8 @@ namespace MarketplaceSession.Pages
         {
             Order.StatusId = SelectedStatus.Id;
 
-            MarketplaceSessionEntities.GetContext().Order.AddOrUpdate(Order);
-            MarketplaceSessionEntities.GetContext().SaveChanges();
+            ProductDeliveryEntities.GetContext().Order.AddOrUpdate(Order);
+            ProductDeliveryEntities.GetContext().SaveChanges();
 
             MessageBox.Show($"Status changed", "Successfully",
                 MessageBoxButton.OK, MessageBoxImage.Asterisk);

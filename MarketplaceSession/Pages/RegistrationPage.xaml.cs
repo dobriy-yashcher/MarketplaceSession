@@ -1,5 +1,5 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
 using System;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for RegistrationPage.xaml
@@ -19,7 +19,7 @@ namespace MarketplaceSession.Pages
         public RegistrationPage()
         {
             InitializeComponent();
-            //CbRoles.ItemsSource = MarketplaceSessionEntities.GetContext().Role.ToList();
+            //CbRoles.ItemsSource = ProductDeliveryEntities.GetContext().Role.ToList();
         }
 
         //private void BtnSignUp_Click(object sender, RoutedEventArgs e)
@@ -34,7 +34,7 @@ namespace MarketplaceSession.Pages
         //    if (string.IsNullOrWhiteSpace(TbPassword.Password))
         //        errors.AppendLine("Введите пароль!");
 
-        //    var findUser = MarketplaceSessionEntities.GetContext().User
+        //    var findUser = ProductDeliveryEntities.GetContext().User
         //        .Where(x => x.LogIn.Username == TbLogin.Text)
         //        .FirstOrDefault();
         //    if (findUser != null)
@@ -76,7 +76,7 @@ namespace MarketplaceSession.Pages
         //        Username = TbSurname.Text,
         //        Password = TbPassword.Password
         //    };
-        //    MarketplaceSessionEntities.GetContext().LogIn.Add(login);
+        //    ProductDeliveryEntities.GetContext().LogIn.Add(login);
 
         //    var newUser = new User
         //    {
@@ -89,8 +89,8 @@ namespace MarketplaceSession.Pages
 
         //    try
         //    {
-        //        MarketplaceSessionEntities.GetContext().User.Add(newUser);
-        //        MarketplaceSessionEntities.GetContext().SaveChanges();
+        //        ProductDeliveryEntities.GetContext().User.Add(newUser);
+        //        ProductDeliveryEntities.GetContext().SaveChanges();
 
         //        MessageBox.Show("Регистрация прошла успешно!", "Успешно",
         //            MessageBoxButton.OK, MessageBoxImage.Information);
@@ -185,7 +185,7 @@ namespace MarketplaceSession.Pages
             if (string.IsNullOrWhiteSpace(passwordBox.Password))
                 errors.AppendLine("Enter the password!");
 
-            var findUser = MarketplaceSessionEntities.GetContext().User
+            var findUser = ProductDeliveryEntities.GetContext().User
                 .Where(x => x.LogIn.Username == txtUsername.Text)
                 .FirstOrDefault();
             if (findUser != null)
@@ -227,7 +227,7 @@ namespace MarketplaceSession.Pages
                 Username = txtUsername.Text,
                 Password = passwordBox.Password
             };
-            MarketplaceSessionEntities.GetContext().LogIn.Add(login);
+            ProductDeliveryEntities.GetContext().LogIn.Add(login);
 
             var newUser = new User
             {
@@ -239,8 +239,8 @@ namespace MarketplaceSession.Pages
 
             try
             {
-                MarketplaceSessionEntities.GetContext().User.Add(newUser);
-                MarketplaceSessionEntities.GetContext().SaveChanges();
+                ProductDeliveryEntities.GetContext().User.Add(newUser);
+                ProductDeliveryEntities.GetContext().SaveChanges();
 
                 MessageBox.Show("Registration was successful!", "Successfully",
                     MessageBoxButton.OK, MessageBoxImage.Information);

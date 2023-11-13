@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml

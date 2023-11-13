@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarketplaceSession.ADO
+namespace ProductDelivery.ADO
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MarketplaceSessionEntities : DbContext
+    public partial class ProductDeliveryEntities : DbContext
     {
-        public MarketplaceSessionEntities()
-            : base("name=MarketplaceSessionEntities")
+        public ProductDeliveryEntities()
+            : base("name=ProductDeliveryEntities")
         {
         }
     

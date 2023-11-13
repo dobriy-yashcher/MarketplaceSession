@@ -1,5 +1,5 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for ProductsPage.xaml
@@ -32,7 +32,7 @@ namespace MarketplaceSession.Pages
         public ProductsPage()
         {
             AddToCartButtonVisibility = Manager.AuthorizedUser.Role.Name == "Client" ? Visibility.Visible : Visibility.Hidden;
-            var productTypes = MarketplaceSessionEntities.GetContext().Category.ToArray();
+            var productTypes = ProductDeliveryEntities.GetContext().Category.ToArray();
             ProductTypes = productTypes.Concat(new[] { _allProductType }).ToArray();
             InitializeComponent();
         }
@@ -61,7 +61,7 @@ namespace MarketplaceSession.Pages
             else
                 filter = x => x.Title.ToLower().Contains(SearchText.ToLower()) && x.CategoryId == SelectedType.Id;
 
-            var query = MarketplaceSessionEntities.GetContext().Product.Where(x => !x.IsActual).ToArray();
+            var query = ProductDeliveryEntities.GetContext().Product.Where(x => !x.IsActual).ToArray();
 
             TotalItemsCount = query.Length;
             Products = query.Where(x => filter(x)).OrderBy(x => sorting(x)).ToArray();
@@ -84,14 +84,14 @@ namespace MarketplaceSession.Pages
         {
             var product = (Product)((Button)sender).Tag;
 
-            var basketEntry = MarketplaceSessionEntities.GetContext().ProductCart
+            var basketEntry = ProductDeliveryEntities.GetContext().ProductCart
               .FirstOrDefault(x => x.CartId == Manager.CurrentCart.Id && x.ProductId == product.Id)
               ?? new ProductCart { ProductId = product.Id, CartId = Manager.CurrentCart.Id };
 
             basketEntry.Count++;
 
-            MarketplaceSessionEntities.GetContext().ProductCart.AddOrUpdate(basketEntry);
-            MarketplaceSessionEntities.GetContext().SaveChanges();
+            ProductDeliveryEntities.GetContext().ProductCart.AddOrUpdate(basketEntry);
+            ProductDeliveryEntities.GetContext().SaveChanges();
 
             MessageBox.Show($"The product has been added to the cart. Current quantity: {basketEntry.Count}", "Successfully",
                 MessageBoxButton.OK, MessageBoxImage.Asterisk);

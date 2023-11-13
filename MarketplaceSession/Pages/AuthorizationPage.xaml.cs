@@ -1,8 +1,8 @@
-﻿using MarketplaceSession.ADO;
-using MarketplaceSession.Components;
-using MarketplaceSession.Pages;
-using MarketplaceSession.Properties;
-using MarketplaceSession.Windows;
+﻿using ProductDelivery.ADO;
+using ProductDelivery.Components;
+using ProductDelivery.Pages;
+using ProductDelivery.Properties;
+using ProductDelivery.Windows;
 using System;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MarketplaceSession.Pages
+namespace ProductDelivery.Pages
 {
     /// <summary>
     /// Interaction logic for AuthorizationPage.xaml
@@ -68,7 +68,7 @@ namespace MarketplaceSession.Pages
             /// <summary>
             /// Авторизация
             /// </summary>
-            var findUser = MarketplaceSessionEntities
+            var findUser = ProductDeliveryEntities
                 .GetContext().User
                 .Where(x => x.LogIn.Username == txtUsername.Text)
                 .FirstOrDefault();
@@ -102,8 +102,8 @@ namespace MarketplaceSession.Pages
                 Manager.AuthorizedUser = findUser;
 
                 Manager.CurrentCart = new Cart{ UserId = findUser.Id };
-                MarketplaceSessionEntities.GetContext().Cart.Add(Manager.CurrentCart);
-                MarketplaceSessionEntities.GetContext().SaveChanges();
+                ProductDeliveryEntities.GetContext().Cart.Add(Manager.CurrentCart);
+                ProductDeliveryEntities.GetContext().SaveChanges();
 
                 var mainView = new MainWindow();
                 mainView.Show();
