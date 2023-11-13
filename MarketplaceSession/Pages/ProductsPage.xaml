@@ -1,0 +1,140 @@
+﻿<Page x:Class="MarketplaceSession.Pages.ProductsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MarketplaceSession.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="600"
+      Title="ProductsPage" Loaded="Page_Loaded"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid Margin="0 30 0 0">
+        <Grid.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="Margin" Value="0 0 20 0" />
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="10 0 10 0" CornerRadius="5">
+                    <Grid Margin=" 9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="/Images/search.png" Height="20" />
+                        <TextBlock x:Name="textSearch" MouseDown="textSearch_MouseDown" Text="Search" Style="{StaticResource textHint}" />
+                        <TextBox Name="txtSearch" TextChanged="txtSearch_TextChanged" 
+                                 Style="{StaticResource textBox}" Text="{Binding SearchText}"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Sorting" Foreground="#ACB0AF" HorizontalAlignment="Left" FontSize="15"
+                           Style="{StaticResource NormalText}" Margin="0"/>
+                <ComboBox ItemsSource="{Binding Sortings}" Padding="0"
+                          SelectedIndex="{Binding SelectedSortingIndex}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Category" Foreground="#ACB0AF" HorizontalAlignment="Left" FontSize="15"
+                           Style="{StaticResource NormalText}" Margin="0"/>
+                <ComboBox ItemsSource="{Binding ProductTypes}" Padding="0" 
+                          SelectedItem="{Binding SelectedType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <Button Grid.Column="3" Content="✔" Style="{StaticResource buttonCircle2}"
+                    Click="ApplySearchButton_Click" Width="50"/>
+        </Grid>
+
+        <ListView Grid.Row="1" x:Name="MainListView" HorizontalAlignment="Stretch"
+                  MouseDoubleClick="ListViewItem_MouseDoubleClick" 
+                  d:ItemsSource="{d:SampleData ItemCount=10}"
+                  ItemsSource="{Binding Products}" 
+                  ScrollViewer.CanContentScroll="False">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Height" Value="200"/>
+                    <Setter Property="Foreground" Value="#ACB0AF"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="25" Margin="10">
+                                <Border Width="170" Height="170" BorderThickness="1" 
+                        CornerRadius="25">
+                                    <Border.Background>
+                                        <ImageBrush x:Name="MainImage" Stretch="Uniform"
+                                                    ImageSource="{Binding Image}"/>
+                                    </Border.Background>
+
+                                </Border>
+                            </Border>
+                            <Grid VerticalAlignment="Stretch" >
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Margin="10"/>
+                                <TextBlock Text="{Binding Category.Name}" FontSize="20"
+                                           VerticalAlignment="Bottom" Margin="10"/>
+                            </Grid>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=Cost, StringFormat={}{0:F0}}" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   FontSize="20"/>
+                        <Button Grid.Column="2" Height="50" Width="150"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=local:ProductsPage}, Path=DataContext.AddToCartButtonVisibility}" 
+                                Tag="{Binding}" Style="{StaticResource mainButton}"
+                                Click="AddToBasketButton_Click">
+                            <Button.Content>
+                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center">
+                                    Add to cart
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Prices are indicated in rubles"
+                   Style="{StaticResource NormalText}" Foreground="#3AB19B" VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>

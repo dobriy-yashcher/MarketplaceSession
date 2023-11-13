@@ -1,0 +1,92 @@
+﻿<Page x:Class="MarketplaceSession.Pages.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MarketplaceSession.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CartPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+
+    <Grid d:Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" x:Name="MainListView" 
+                  d:ItemsSource="{d:SampleData ItemCount=10}" 
+                  ItemsSource="{Binding BasketEntries}" 
+                  ScrollViewer.CanContentScroll="False">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Height" Value="200"/>
+                    <Setter Property="Foreground" Value="#ACB0AF"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="25" Margin="10">
+                                <Border Width="170" Height="170" BorderThickness="1" 
+                        CornerRadius="25">
+                                    <Border.Background>
+                                        <ImageBrush x:Name="MainImage" Stretch="Uniform"
+                                                    ImageSource="{Binding Product.Image}"/>
+                                    </Border.Background>
+
+                                </Border>
+                            </Border>
+                            <Grid VerticalAlignment="Stretch" >
+                                <TextBlock Text="{Binding Product.Title}" VerticalAlignment="Top" Margin="10"/>
+                                <TextBlock Text="{Binding Product.Category.Name}" FontSize="20"
+                                           VerticalAlignment="Bottom" Margin="10"/>
+                            </Grid>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=Product.Cost, StringFormat={}{0:F0}}" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   FontSize="20"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" 
+                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Tag="{Binding}" Background="DarkRed" Style="{StaticResource mainButton}"
+                                    Width="50" Height="50" Margin="5" Content="-"
+                                    Click="ReduceCountButton_Click"/>
+                            <TextBlock Text="{Binding Count}" FontSize="20" VerticalAlignment="Center"/>
+                            <Button Tag="{Binding}" Content="+" 
+                                    Width="50" Height="50" Margin="5"
+                                    Style="{StaticResource mainButton}"
+                                    Click="IncreaseCountButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <DockPanel Grid.Row="1">
+            <TextBlock x:Name="TotalTextBlock" Margin="10"
+                       Text="{Binding TotalPrice, StringFormat={}Total: {0:F0} rubles}" 
+                       VerticalAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Right" Margin="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Style="{StaticResource mainButton}" Margin="5"
+                    Click="CreateOrderButton_Click" Content="Place an order"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Page>

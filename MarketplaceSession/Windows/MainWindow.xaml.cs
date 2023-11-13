@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MarketplaceSession.Components;
+using MarketplaceSession.Pages;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Markup;
 
 namespace MarketplaceSession.Windows
 {
@@ -22,18 +14,42 @@ namespace MarketplaceSession.Windows
         public MainWindow()
         {
             InitializeComponent();
+
+            CreateProductButton.Visibility = Manager.AuthorizedUser.Role.Name == "Admin" ? Visibility.Visible : Visibility.Collapsed;
+            BasketButton.Visibility = Manager.AuthorizedUser.Role.Name == "Client" ? Visibility.Visible : Visibility.Collapsed;
+            Manager.MainFrame = MainFrame;
+            MainFrame.Navigate(new ProductsPage());
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
 
-        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new OrdersPage());
+        }
+
+        private void CreateProudctButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new ProductPage());
+        }
+
+        private void BasketButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new CartPage());
+        }
+
+        private void ProductsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ProductsPage());
         }
     }
 }

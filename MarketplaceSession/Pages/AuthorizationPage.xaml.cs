@@ -27,63 +27,6 @@ namespace MarketplaceSession.Pages
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            var loginText = Settings.Default.LastUser;
-            txtUsername.Text = loginText;
-
-            if (loginText != "")
-                ChbRemember.IsChecked = true;
-        }
-
-        private void textUsername_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            txtUsername.Focus();
-        }
-
-        private void textPassword_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            passwordBox.Focus();
-        }
-
-        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtUsername.Text) && txtUsername.Text.Length > 0)
-                textUsername.Visibility = Visibility.Collapsed;
-            else
-                textUsername.Visibility = Visibility.Visible;
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(passwordBox.Password) && passwordBox.Password.Length > 0)
-                textPassword.Visibility = Visibility.Collapsed;
-            else
-                textPassword.Visibility = Visibility.Visible;
-        }
-
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void SignUp_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new RegistrationPage());
-        }            
-
-        //private async void Login_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(passwordBox.Password))
-        //    {
-        //        MessageBox.Show("Successfully Signed In");
-
-        //        var mainView = new MainWindow();
-        //        mainView.Show();
-        //        Application.Current.Windows[0].Close();
-        //    }
-        //}
-
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             /// <summary>
@@ -156,10 +99,61 @@ namespace MarketplaceSession.Pages
                 MessageBox.Show("Authorization was successful!",
                     "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                Manager.AuthorizedUser = findUser;
+
+                Manager.CurrentCart = new Cart{ UserId = findUser.Id };
+                MarketplaceSessionEntities.GetContext().Cart.Add(Manager.CurrentCart);
+                MarketplaceSessionEntities.GetContext().SaveChanges();
+
                 var mainView = new MainWindow();
                 mainView.Show();
                 Application.Current.Windows[0].Close();
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var loginText = Settings.Default.LastUser;
+            txtUsername.Text = loginText;
+
+            if (loginText != "")
+                ChbRemember.IsChecked = true;
+        }
+
+        private void textUsername_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            txtUsername.Focus();
+        }
+
+        private void textPassword_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            passwordBox.Focus();
+        }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtUsername.Text) && txtUsername.Text.Length > 0)
+                textUsername.Visibility = Visibility.Collapsed;
+            else
+                textUsername.Visibility = Visibility.Visible;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(passwordBox.Password) && passwordBox.Password.Length > 0)
+                textPassword.Visibility = Visibility.Collapsed;
+            else
+                textPassword.Visibility = Visibility.Visible;
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new RegistrationPage());
         }
     }
 }

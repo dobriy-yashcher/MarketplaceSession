@@ -7,62 +7,48 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
-        Width="850"
+        Width="1050"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Grid>
+    <Grid MouseDown="Border_MouseDown">
         <!--// Window Border //-->
         <Border Background="#FFFFFF"
-                CornerRadius="20" MouseDown="Border_MouseDown"/>
+                CornerRadius="20"/>
 
         <Grid>
             <!--// Base Grid //-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="228*" />
+                <ColumnDefinition Width="255*" />
                 <ColumnDefinition Width="622*" />
             </Grid.ColumnDefinitions>
 
             <!--// Navigation Panel //-->
-            <Grid HorizontalAlignment="Left"
-                  Width="228">
-                <Border Background="#3AA9AD"
-                        CornerRadius="20,0,0,20" />
+            <Grid HorizontalAlignment="Stretch">
+                <Border Background="#3AA9AD" CornerRadius="20,0,0,20" />
 
-                <StackPanel Height="400"
-                            Width="228">
-                    <!--// Home //-->
-                    <Menu></Menu>
-
-                    <!--// Customer //-->
-                    <Menu></Menu>
-
-                    <!--// Products //-->
-                    <Menu></Menu>
-
-                    <!--// Orders //-->
-                    <Menu></Menu>
-
-                    <!--// Transactions //-->
-                    <Menu></Menu>
-
-                    <!--// Shipments //-->
-                    <Menu></Menu>
-
-                    <!--// Settings //-->
-                    <Menu></Menu>
-
+                <Canvas>
+                    <Polygon Points="0,20 230,140 0,270" Fill="#4EB1B6" />
+                    <Polygon Points="200,550 240,410 140,470" Fill="#4EB1B6" />
+                    <Ellipse Margin="50 400 0 0" Width="20" Height="20" Fill="#4EB1B6" />
+                </Canvas>
+                
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource TitleText}" Text="Marketplace" />
+                    <Button x:Name="OrdersButton" Content="Orders" Style="{StaticResource mainButton2}" Click="OrdersButton_Click"/>
+                    <Button x:Name="ProductsButton" Content="Products" Style="{StaticResource mainButton2}" Click="ProductsButton_Click"/>
+                    <Button x:Name="CreateProductButton" Content="Create product" Style="{StaticResource mainButton2}" Click="CreateProudctButton_Click"/>
+                    <Button x:Name="BasketButton" Content="Cart" Style="{StaticResource mainButton2}" Click="BasketButton_Click"/>
                 </StackPanel>
             </Grid>
 
             <Grid Grid.Column="1">
-                <Frame></Frame>
+                <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
             </Grid>
 
-
-            <Image Source="/Images/shutdown_mo.png" Grid.Column="1" Panel.ZIndex="1" 
-               MouseUp="Image_MouseUp" Style="{StaticResource imgClose}"/>
+            <Image Source="/Images/shutdown_mo.png" Grid.Column="1" Panel.ZIndex="1"
+                   MouseDown="Image_MouseDown" Style="{StaticResource imgClose}"/>
         </Grid>
     </Grid>
 </Window>
