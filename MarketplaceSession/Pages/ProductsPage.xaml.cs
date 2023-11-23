@@ -2,12 +2,15 @@
 using ProductDelivery.Components;
 using System;
 using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace ProductDelivery.Pages
 {
@@ -35,8 +38,32 @@ namespace ProductDelivery.Pages
             var productTypes = ProductDeliveryEntities.GetContext().Category.ToArray();
             ProductTypes = productTypes.Concat(new[] { _allProductType }).ToArray();
             InitializeComponent();
+
+            Loaded += ProductsPage_Loaded;
         }
 
+        private void ProductsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toggleButtonSorting = (ToggleButton)cmbSorting.Template.FindName("toggleButton", cmbSorting);
+            if (toggleButtonSorting != null)
+            {
+                var border = (Border)toggleButtonSorting.Template.FindName("templateRoot", toggleButtonSorting);
+                if  (border != null)
+                {
+                    border.Background = System.Windows.Media.Brushes.Transparent;
+                }    
+            }  
+
+            var toggleButtonCategory = (ToggleButton)cmbCategory.Template.FindName("toggleButton", cmbCategory);
+            if (toggleButtonCategory != null)
+            {
+                var border = (Border)toggleButtonCategory.Template.FindName("templateRoot", toggleButtonCategory);
+                if  (border != null)
+                {
+                    border.Background = System.Windows.Media.Brushes.Transparent;
+                }    
+            }
+        }
 
         private void UpdateSource()
         {

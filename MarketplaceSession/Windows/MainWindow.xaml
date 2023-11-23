@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ProductDelivery.Windows"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="600"
-        Width="1050"
+        Height="900"
+        Width="1575"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -30,16 +30,16 @@
 
                 <Canvas>
                     <Polygon Points="0,20 230,140 0,270" Fill="#4EB1B6" />
-                    <Polygon Points="200,550 240,410 140,470" Fill="#4EB1B6" />
-                    <Ellipse Margin="50 400 0 0" Width="20" Height="20" Fill="#4EB1B6" />
+                    <Polygon Points="300,850 390,510 140,670" Fill="#4EB1B6" Margin="40 0 0 0"/>
+                    <Ellipse Margin="50 600 0 0" Width="70" Height="70" Fill="#4EB1B6" />
                 </Canvas>
                 
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource TitleText}" Text="Marketplace" />
-                    <Button x:Name="OrdersButton" Content="Orders" Style="{StaticResource mainButton2}" Click="OrdersButton_Click"/>
-                    <Button x:Name="ProductsButton" Content="Products" Style="{StaticResource mainButton2}" Click="ProductsButton_Click"/>
-                    <Button x:Name="CreateProductButton" Content="Create product" Style="{StaticResource mainButton2}" Click="CreateProudctButton_Click"/>
-                    <Button x:Name="BasketButton" Content="Cart" Style="{StaticResource mainButton2}" Click="BasketButton_Click"/>
+                    <TextBlock Style="{StaticResource BigTitleText}" Text="Product delivery" />
+                    <Button x:Name="OrdersButton" Content="Orders" Style="{StaticResource bigMainButton2}" Click="OrdersButton_Click"/>
+                    <Button x:Name="ProductsButton" Content="Products" Style="{StaticResource bigMainButton2}" Click="ProductsButton_Click"/>
+                    <Button x:Name="CreateProductButton" Content="Create product" Style="{StaticResource bigMainButton2}" Click="CreateProudctButton_Click"/>
+                    <Button x:Name="BasketButton" Content="Cart" Style="{StaticResource bigMainButton2}" Click="BasketButton_Click"/>
                 </StackPanel>
             </Grid>
 

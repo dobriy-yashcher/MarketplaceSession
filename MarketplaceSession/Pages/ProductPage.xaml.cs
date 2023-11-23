@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Controls.Primitives;
+using System.Threading;
+using System.Globalization;
 
 namespace ProductDelivery.Pages
 {
@@ -33,6 +36,10 @@ namespace ProductDelivery.Pages
 
         public ProductPage(int? productId = null)
         {
+            var culture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
             if (productId != null)
             {
                 _isNew = false;
@@ -44,7 +51,21 @@ namespace ProductDelivery.Pages
 
             InitializeComponent();
 
+            Loaded += ProductPage_Loaded;
             AddToCartButton.Visibility = Manager.AuthorizedUser.Role.Name == "Admin" ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        private void ProductPage_Loaded(object sender, RoutedEventArgs e)
+        {           
+            var toggleButton = (ToggleButton)cmbCategory.Template.FindName("toggleButton", cmbCategory);
+            if (toggleButton != null)
+            {
+                var border = (Border)toggleButton.Template.FindName("templateRoot", toggleButton);
+                if (border != null)
+                {
+                    border.Background = System.Windows.Media.Brushes.Transparent;
+                }
+            }
         }
 
         private void ProductPage_Unloaded(object sender, RoutedEventArgs e)
@@ -58,25 +79,25 @@ namespace ProductDelivery.Pages
         {
             if (string.IsNullOrEmpty(Product.Title))
             {
-                MessageBox.Show("Name not entered");
+                MessageBox.Show("Name not entered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (Product.Cost == 0)
             {
-                MessageBox.Show("The cost is not entered");
+                MessageBox.Show("The cost is not entered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (Product.Category == null)
             {
-                MessageBox.Show("Category not entered");
+                MessageBox.Show("Category not entered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (Product.Image == null)
             {
-                MessageBox.Show("Image not selected");
+                MessageBox.Show("Image not selected", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -92,6 +113,11 @@ namespace ProductDelivery.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            //var culture = new CultureInfo("en-US");
+            ////Thread.CurrentThread.CurrentCulture = culture;
+            ////Thread.CurrentThread.CurrentUICulture = culture;
+            //CultureInfo.CurrentCulture = culture;
+
             var result = MessageBox.Show("Are you sure?", "Confirmation of deletion",
                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)

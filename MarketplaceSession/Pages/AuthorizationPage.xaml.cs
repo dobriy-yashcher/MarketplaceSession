@@ -105,8 +105,8 @@ namespace ProductDelivery.Pages
                 ProductDeliveryEntities.GetContext().Cart.Add(Manager.CurrentCart);
                 ProductDeliveryEntities.GetContext().SaveChanges();
 
-                var mainView = new MainWindow();
-                mainView.Show();
+                Manager.CurrentWindow = new MainWindow();
+                Manager.CurrentWindow.Show();
                 Application.Current.Windows[0].Close();
             }
         }

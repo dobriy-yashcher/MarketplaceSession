@@ -5,24 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductDelivery.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="OrderPage"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid d:Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
-        
+
         <TextBlock Grid.Column="0" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" VerticalAlignment="Center" 
-                   FontSize="24">
+                   FontSize="24" Foreground="#3AB19B" FontWeight="Bold">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}Order №{0} at {1}">
                     <Binding Path="Order.Id"/>
@@ -30,7 +30,7 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        
+
         <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                   x:Name="MainListView" 
                   d:ItemsSource="{d:SampleData ItemCount=10}"
@@ -39,9 +39,9 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Margin" Value="10"/>
                     <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="Height" Value="100"/>
+                    <Setter Property="Height" Value="200"/>
                     <Setter Property="Foreground" Value="#ACB0AF"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
@@ -63,7 +63,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <Border BorderBrush="Black" BorderThickness="1" CornerRadius="25" Margin="10">
-                                <Border Width="70" Height="70" BorderThickness="1" 
+                                <Border Width="170" Height="170" BorderThickness="1" 
                         CornerRadius="25">
                                     <Border.Background>
                                         <ImageBrush x:Name="MainImage" Stretch="Uniform"
@@ -72,44 +72,51 @@
 
                                 </Border>
                             </Border>
-                            <!--<Image Source="{Binding Product.Image}"/>-->
                             <Grid VerticalAlignment="Stretch" >
-                                <TextBlock Text="{Binding Product.Title}" VerticalAlignment="Top" Margin="10"/>
-                                <TextBlock Text="{Binding Product.Category.Name}"
+                                <TextBlock Text="{Binding Product.Title}" VerticalAlignment="Top" Margin="10"
+                                           FontSize="24" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Product.Category.Name}" FontSize="20"
                                            VerticalAlignment="Bottom" Margin="10"/>
                             </Grid>
                         </StackPanel>
-                        <TextBlock Grid.Column="1" 
+                        <TextBlock Grid.Column="1" FontSize="20"
                                    Text="{Binding Product.Cost, StringFormat={}{0:F0} rubles}" 
                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" 
+                        <TextBlock Grid.Column="2" FontSize="20"
                                    Text="{Binding Count, StringFormat={}{0:F0} pc.}"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-            <TextBlock Text="Status" Foreground="#ACB0AF" VerticalAlignment="Center"
-                           HorizontalAlignment="Left" FontSize="15"
-                           Style="{StaticResource NormalText}" Margin="5"/>
-            <ComboBox x:Name="cbStatus" VerticalAlignment="Center" Margin="5"
-                          ItemsSource="{Binding Statuses}" Width="150"
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal"
+                       VerticalAlignment="Center">
+            <TextBlock Text="Status:" HorizontalAlignment="Left" Margin="10"
+                       Style="{StaticResource TitleText}" Foreground="#3AB19B" 
+                       FontSize="24" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center" Margin="0">
+                <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="10 0 10 0" CornerRadius="5">
+                    <ComboBox x:Name="cbStatus"
+                          ItemsSource="{Binding Statuses}" Width="250" Margin="5"
+                          Style="{DynamicResource comboBox}"
                           SelectedItem="{Binding SelectedStatus}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+            </StackPanel>
             <Button Content="✔" Margin="5"
                         Style="{StaticResource buttonCircle2}"
                         Click="ChangeStatusButton_Click" Width="50" Height="50"
                         Visibility="{Binding AdminButtonsVisible}"/>
         </StackPanel>
+        
         <TextBlock Grid.Row="2" Grid.Column="1"
-                   Margin="5" 
+                   FontWeight="Bold" Margin="20" 
+                   FontSize="24" Foreground="#3AB19B"
                    VerticalAlignment="Center" HorizontalAlignment="Right"
                    Text="{Binding OrderSum, StringFormat={}Total: {0:F0} rubles}"/>
     </Grid>

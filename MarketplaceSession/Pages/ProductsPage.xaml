@@ -5,28 +5,29 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductDelivery.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="600"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="ProductsPage" Loaded="Page_Loaded"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid Margin="0 30 0 0">
+    <Grid>
         <Grid.Resources>
             <Style TargetType="StackPanel">
-                <Setter Property="Margin" Value="0 0 20 0" />
+                <Setter Property="Margin" Value="0 0 0 0" />
             </Style>
         </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" VerticalAlignment="Center">
+        <Grid Grid.Row="1" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
@@ -37,38 +38,53 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Image Source="/Images/search.png" Height="20" />
-                        <TextBlock x:Name="textSearch" MouseDown="textSearch_MouseDown" Text="Search" Style="{StaticResource textHint}" />
+                        <Image Source="/Images/search.png" Height="30" />
+                        <TextBlock x:Name="textSearch" MouseDown="textSearch_MouseDown" 
+                                   Text="Search" Style="{StaticResource searchTextHint}" />
                         <TextBox Name="txtSearch" TextChanged="txtSearch_TextChanged" 
-                                 Style="{StaticResource textBox}" Text="{Binding SearchText}"/>
+                                 Style="{StaticResource searchtextBox}" Text="{Binding SearchText}"/>
                     </Grid>
                 </Border>
             </StackPanel>
 
-            <StackPanel Grid.Column="1">
-                <TextBlock Text="Sorting" Foreground="#ACB0AF" HorizontalAlignment="Left" FontSize="15"
-                           Style="{StaticResource NormalText}" Margin="0"/>
-                <ComboBox ItemsSource="{Binding Sortings}" Padding="0"
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Sorting:" HorizontalAlignment="Left" Margin="0"
+                           Style="{StaticResource TitleText}" Foreground="#3AB19B" 
+                           FontSize="24" VerticalAlignment="Center"/>
+                <StackPanel>
+                    <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="10 0 10 0" CornerRadius="5">
+                        <ComboBox x:Name="cmbSorting"
+                          ItemsSource="{Binding Sortings}" Width="250" Margin="5"
+                          Style="{DynamicResource comboBox}"
                           SelectedIndex="{Binding SelectedSortingIndex}"/>
+                    </Border>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Column="2">
-                <TextBlock Text="Category" Foreground="#ACB0AF" HorizontalAlignment="Left" FontSize="15"
-                           Style="{StaticResource NormalText}" Margin="0"/>
-                <ComboBox ItemsSource="{Binding ProductTypes}" Padding="0" 
+            <StackPanel Grid.Column="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                <TextBlock Text="Category:" HorizontalAlignment="Left" Margin="0"
+                           Style="{StaticResource TitleText}" Foreground="#3AB19B"
+                           FontSize="24" VerticalAlignment="Center"/>
+                <StackPanel>
+                    <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="10 0 10 0" CornerRadius="5">
+                        <ComboBox x:Name="cmbCategory"
+                          ItemsSource="{Binding ProductTypes}" Width="250" Margin="5"
+                          Style="{DynamicResource comboBox}"
                           SelectedItem="{Binding SelectedType}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
             </StackPanel>
 
             <Button Grid.Column="3" Content="✔" Style="{StaticResource buttonCircle2}"
                     Click="ApplySearchButton_Click" Width="50"/>
         </Grid>
 
-        <ListView Grid.Row="1" x:Name="MainListView" HorizontalAlignment="Stretch"
+        <ListView Grid.Row="2" x:Name="MainListView" HorizontalAlignment="Stretch"
                   MouseDoubleClick="ListViewItem_MouseDoubleClick" 
                   d:ItemsSource="{d:SampleData ItemCount=10}"
                   ItemsSource="{Binding Products}" 
@@ -76,7 +92,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Margin" Value="10"/>
                     <Setter Property="BorderBrush" Value="Black"/>
                     <Setter Property="Height" Value="200"/>
                     <Setter Property="Foreground" Value="#ACB0AF"/>
@@ -110,7 +126,8 @@
                                 </Border>
                             </Border>
                             <Grid VerticalAlignment="Stretch" >
-                                <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Margin="10"/>
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Margin="10"
+                                           FontSize="24" TextWrapping="WrapWithOverflow"/>
                                 <TextBlock Text="{Binding Category.Name}" FontSize="20"
                                            VerticalAlignment="Bottom" Margin="10"/>
                             </Grid>
@@ -134,7 +151,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Prices are indicated in rubles"
-                   Style="{StaticResource NormalText}" Foreground="#3AB19B" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="3" Text="Prices are indicated in rubles"
+                   Style="{StaticResource TitleText}" Foreground="#3AB19B" VerticalAlignment="Center"/>
     </Grid>
 </Page>

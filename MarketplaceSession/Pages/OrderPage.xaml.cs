@@ -5,6 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 
 namespace ProductDelivery.Pages
@@ -23,7 +24,7 @@ namespace ProductDelivery.Pages
         public int OrderSum { get; set; }
 
         public OrderPage(int orderId)
-        {                                              
+        {
             Order = ProductDeliveryEntities.GetContext().Order.Find(orderId);
             SelectedStatus = Order.Status;
             Products = ProductDeliveryEntities.GetContext().ProductCart.Where(x => x.CartId == Order.CartId).ToArray();
@@ -32,8 +33,23 @@ namespace ProductDelivery.Pages
 
             InitializeComponent();
 
+            Loaded += OrderPage_Loaded;
+
             if (Manager.AuthorizedUser.Role.Name == "Client")
                 cbStatus.IsEnabled = false;
+        }
+
+        private void OrderPage_Loaded(object sender, RoutedEventArgs e)
+        {           
+            var toggleButton = (ToggleButton)cbStatus.Template.FindName("toggleButton", cbStatus);
+            if (toggleButton != null)
+            {
+                var border = (Border)toggleButton.Template.FindName("templateRoot", toggleButton);
+                if (border != null)
+                {
+                    border.Background = System.Windows.Media.Brushes.Transparent;
+                }
+            }    
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

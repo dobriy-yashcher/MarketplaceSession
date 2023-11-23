@@ -5,24 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductDelivery.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="CartPage"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
 
     <Grid d:Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" x:Name="MainListView" 
+        <ListView Grid.Row="1" x:Name="MainListView" 
                   d:ItemsSource="{d:SampleData ItemCount=10}" 
                   ItemsSource="{Binding BasketEntries}" 
                   ScrollViewer.CanContentScroll="False">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Margin" Value="10"/>
                     <Setter Property="BorderBrush" Value="Black"/>
                     <Setter Property="Height" Value="200"/>
                     <Setter Property="Foreground" Value="#ACB0AF"/>
@@ -56,7 +57,8 @@
                                 </Border>
                             </Border>
                             <Grid VerticalAlignment="Stretch" >
-                                <TextBlock Text="{Binding Product.Title}" VerticalAlignment="Top" Margin="10"/>
+                                <TextBlock Text="{Binding Product.Title}" VerticalAlignment="Top" Margin="10"
+                                           FontSize="24" TextWrapping="Wrap"/>
                                 <TextBlock Text="{Binding Product.Category.Name}" FontSize="20"
                                            VerticalAlignment="Bottom" Margin="10"/>
                             </Grid>
@@ -79,12 +81,19 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="2">
             <TextBlock x:Name="TotalTextBlock" Margin="10"
                        Text="{Binding TotalPrice, StringFormat={}Total: {0:F0} rubles}" 
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center" FontWeight="Bold"
+                       FontSize="24" Foreground="#3AB19B"/>
             <StackPanel HorizontalAlignment="Right" Margin="0" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Style="{StaticResource mainButton}" Margin="5"
+                <Button Style="{StaticResource bigMainButton2}" Margin="5"
+                    Click="ImportCart_Click" Content="Import cart"/>          
+                <!--<Button Style="{StaticResource buttonCircle}" Margin="5"
+                    Click="ScanCart_Click" Content="Sc"/>-->
+                <Button Style="{StaticResource bigMainButton2}" Margin="5"
+                    Click="ShareCart_Click" Content="Share cart"/>
+                <Button Style="{StaticResource bigMainButton}" Margin="5"
                     Click="CreateOrderButton_Click" Content="Place an order"/>
             </StackPanel>
         </DockPanel>
